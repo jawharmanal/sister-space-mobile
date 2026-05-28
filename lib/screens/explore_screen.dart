@@ -1,6 +1,7 @@
 // 🌸 Explore — identique au site web, ajusté pour le cadre téléphone
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
+import 'categorie_posts_screen.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -12,14 +13,14 @@ class _ExploreScreenState extends State<ExploreScreen> {
   String _recherche = '';
 
   static const _categories = [
-    {'emoji': '🍴', 'nom': 'Restos', 'desc': 'Bons plans culinaires'},
-    {'emoji': '🎬', 'nom': 'Cinéma', 'desc': 'Films à découvrir'},
-    {'emoji': '🛍️', 'nom': 'Shopping', 'desc': 'Pépites mode et déco'},
-    {'emoji': '🎨', 'nom': 'Culture', 'desc': 'Expos, musées, sorties'},
-    {'emoji': '💪', 'nom': 'Sport', 'desc': 'Cours, courses, motivation'},
-    {'emoji': '🌿', 'nom': 'Bien-être', 'desc': 'Self-care & mindfulness'},
-    {'emoji': '🎵', 'nom': 'Musique', 'desc': 'Concerts, festivals'},
-    {'emoji': '✈️', 'nom': 'Voyages', 'desc': 'Destinations & road trips'},
+    {'id': 1, 'emoji': '🍴', 'nom': 'Restos', 'desc': 'Bons plans culinaires'},
+    {'id': 2, 'emoji': '🎬', 'nom': 'Cinéma', 'desc': 'Films à découvrir'},
+    {'id': 3, 'emoji': '🛍️', 'nom': 'Shopping', 'desc': 'Pépites mode et déco'},
+    {'id': 4, 'emoji': '🎨', 'nom': 'Culture', 'desc': 'Expos, musées, sorties'},
+    {'id': 5, 'emoji': '💪', 'nom': 'Sport', 'desc': 'Cours, courses, motivation'},
+    {'id': 6, 'emoji': '🌿', 'nom': 'Bien-être', 'desc': 'Self-care & mindfulness'},
+    {'id': 7, 'emoji': '🎵', 'nom': 'Musique', 'desc': 'Concerts, festivals'},
+    {'id': 8, 'emoji': '✈️', 'nom': 'Voyages', 'desc': 'Destinations & road trips'},
   ];
 
   static const _grads = [
@@ -129,45 +130,58 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   final c = cats[i];
                   final idx = _categories.indexOf(c);
                   final grad = _grads[idx % _grads.length];
-                  return Container(
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: grad,
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => CategoriePostsScreen(
+                            idCategorie: c['id'] as int,
+                            nom: c['nom'] as String,
+                            emoji: c['emoji'] as String,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: grad,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(22),
+                        boxShadow: [
+                          BoxShadow(
+                            color: grad[0].withValues(alpha: 0.5),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                      borderRadius: BorderRadius.circular(22),
-                      boxShadow: [
-                        BoxShadow(
-                          color: grad[0].withValues(alpha: 0.5),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(c['emoji'] as String,
-                            style: const TextStyle(fontSize: 30)),
-                        const Spacer(),
-                        // FittedBox empêche le titre de se couper
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: Text(c['nom'] as String,
-                              maxLines: 1,
-                              style: AppText.titre(18)),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(c['desc'] as String,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppText.corps(11,
-                                color: AppColors.texte
-                                    .withValues(alpha: 0.7))),
-                      ],
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(c['emoji'] as String,
+                              style: const TextStyle(fontSize: 30)),
+                          const Spacer(),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: Text(c['nom'] as String,
+                                maxLines: 1,
+                                style: AppText.titre(18)),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(c['desc'] as String,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppText.corps(11,
+                                  color: AppColors.texte
+                                      .withValues(alpha: 0.7))),
+                        ],
+                      ),
                     ),
                   );
                 },
