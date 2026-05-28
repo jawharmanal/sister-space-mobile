@@ -1,0 +1,17 @@
+🌸 REFONTE VISUELLE COMPLÈTE — Sister Space Flutter
+
+NOUVEAUTÉS VISUELLES (fidèle à ta maquette) :
+- 🎀 Polices : Playfair Display (titres) + Inter (corps) via google_fonts
+- 🔘 Avatars ronds en dégradé (orange→rose, rose→fuchsia)
+- 🏠 Home : rangée d'avatars "stories" en haut, badges catégories en pilule, fond dégradé
+- 🔍 Explore : cartes catégories en dégradés pastel + #hashtags + "suggested for you"
+- 🌈 Fonds dégradés roses doux sur les écrans principaux
+
+INSTALLATION (IMPORTANT) :
+1. Remplace tout ton dossier "lib/" + le "pubspec.yaml"
+2. flutter pub get   ← OBLIGATOIRE (nouveau package google_fonts !)
+3. flutter run -d chrome
+
+⚠️ google_fonts télécharge les polices depuis internet au 1er lancement,
+   donc sois connectée à internet. C'est normal si le 1er chargement
+   prend quelques secondes de plus.
