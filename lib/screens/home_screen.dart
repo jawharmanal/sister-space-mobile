@@ -66,7 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       _iconeRonde(Icons.search),
                       const SizedBox(width: 10),
-                      _iconeRonde(Icons.notifications_none),
+                      GestureDetector(
+                        onTap: () => _ouvrirNotifications(context),
+                        child: _iconeRonde(Icons.notifications_none),
+                      ),
                     ],
                   ),
                 ],
@@ -166,6 +169,44 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Icon(icone, color: AppColors.roseFonce, size: 20),
       );
+
+  void _ouvrirNotifications(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(28),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: AppColors.bordure,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Icon(Icons.notifications_none,
+                color: AppColors.rose, size: 48),
+            const SizedBox(height: 14),
+            Text('Notifications', style: AppText.titre(20)),
+            const SizedBox(height: 8),
+            Text(
+              'Pas de nouvelle notification pour le moment 🌸\nReviens plus tard !',
+              textAlign: TextAlign.center,
+              style: AppText.corps(14, color: AppColors.texteDoux),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _carte(dynamic p, int index) {
     final auteur = (p['auteure_prenom'] ?? p['prenom'] ?? 'Anonyme').toString();
