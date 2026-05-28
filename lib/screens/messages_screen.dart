@@ -58,6 +58,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 8),
           // En-tête
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 14, 20, 8),

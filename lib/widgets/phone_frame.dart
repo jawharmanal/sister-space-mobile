@@ -1,4 +1,4 @@
-// 📱 PhoneFrame — cadre téléphone compact et mignon (pour le web).
+// 📱 PhoneFrame — cadre téléphone réaliste et joli (pour le web).
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import '../theme/colors.dart';
@@ -14,7 +14,7 @@ class PhoneFrame extends StatelessWidget {
       return child;
     }
 
-    // Cadre compact (plus petit qu'avant : 320 x 660)
+    // Cadre iPhone réaliste : 375 x 770 (proportions iPhone)
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -25,46 +25,43 @@ class PhoneFrame extends StatelessWidget {
       ),
       child: Center(
         child: Container(
-          width: 320,
-          height: 660,
+          width: 375,
+          height: 770,
           decoration: BoxDecoration(
             color: const Color(0xFF1A1A1A),
-            borderRadius: BorderRadius.circular(44),
+            borderRadius: BorderRadius.circular(48),
             boxShadow: [
               BoxShadow(
                 color: AppColors.rose.withValues(alpha: 0.35),
-                blurRadius: 50,
-                spreadRadius: 2,
-                offset: const Offset(0, 12),
+                blurRadius: 55,
+                spreadRadius: 3,
+                offset: const Offset(0, 14),
               ),
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.2),
-                blurRadius: 20,
-                offset: const Offset(0, 6),
+                blurRadius: 24,
+                offset: const Offset(0, 8),
               ),
             ],
           ),
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(10),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(38),
+            borderRadius: BorderRadius.circular(40),
             child: Stack(
               children: [
                 Positioned.fill(child: child),
-                // Encoche compacte
+                // Encoche (Dynamic Island style)
                 Positioned(
-                  top: 0,
+                  top: 8,
                   left: 0,
                   right: 0,
                   child: Center(
                     child: Container(
-                      width: 100,
-                      height: 22,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF1A1A1A),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(14),
-                          bottomRight: Radius.circular(14),
-                        ),
+                      width: 110,
+                      height: 26,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1A1A1A),
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                   ),

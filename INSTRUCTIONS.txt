@@ -1,17 +1,16 @@
-🌸 REFONTE VISUELLE COMPLÈTE — Sister Space Flutter
+🌸 AJUSTEMENT VISUEL — rendu téléphone réaliste
 
-NOUVEAUTÉS VISUELLES (fidèle à ta maquette) :
-- 🎀 Polices : Playfair Display (titres) + Inter (corps) via google_fonts
-- 🔘 Avatars ronds en dégradé (orange→rose, rose→fuchsia)
-- 🏠 Home : rangée d'avatars "stories" en haut, badges catégories en pilule, fond dégradé
-- 🔍 Explore : cartes catégories en dégradés pastel + #hashtags + "suggested for you"
-- 🌈 Fonds dégradés roses doux sur les écrans principaux
+CHANGEMENTS :
+- 📱 Cadre téléphone agrandi à 375x770 (taille iPhone réaliste)
+- 🔍 Explore : titres qui ne se coupent plus (Shopping, Musique, Bien-être OK),
+  cartes mieux proportionnées, recherche compacte
+- 📐 Espace ajouté en haut de chaque écran (ne passe plus sous l'encoche)
 
-INSTALLATION (IMPORTANT) :
-1. Remplace tout ton dossier "lib/" + le "pubspec.yaml"
-2. flutter pub get   ← OBLIGATOIRE (nouveau package google_fonts !)
-3. flutter run -d chrome
+INSTALLATION :
+1. Remplace tout le dossier "lib/" + pubspec.yaml
+2. flutter run -d chrome  (ou R si déjà lancé)
 
-⚠️ google_fonts télécharge les polices depuis internet au 1er lancement,
-   donc sois connectée à internet. C'est normal si le 1er chargement
-   prend quelques secondes de plus.
+POUR METTRE EN LIGNE (Vercel) ensuite :
+   git add .
+   git commit -m "ajustement visuel rendu telephone"
+   git push

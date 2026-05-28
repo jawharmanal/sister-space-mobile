@@ -1,4 +1,4 @@
-// 🌸 Explore — identique au site web (cartes pastel + emoji + nom + description)
+// 🌸 Explore — identique au site web, ajusté pour le cadre téléphone
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
@@ -11,7 +11,6 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   String _recherche = '';
 
-  // Les 8 vraies catégories (comme le site web)
   static const _categories = [
     {'emoji': '🍴', 'nom': 'Restos', 'desc': 'Bons plans culinaires'},
     {'emoji': '🎬', 'nom': 'Cinéma', 'desc': 'Films à découvrir'},
@@ -23,16 +22,15 @@ class _ExploreScreenState extends State<ExploreScreen> {
     {'emoji': '✈️', 'nom': 'Voyages', 'desc': 'Destinations & road trips'},
   ];
 
-  // Dégradés pastel doux (comme le web)
   static const _grads = [
-    [Color(0xFFFAD0DD), Color(0xFFF8DCC8)], // rose → pêche
-    [Color(0xFFF3D5EC), Color(0xFFE8D5F0)], // rose → lilas
-    [Color(0xFFFAD0DD), Color(0xFFEFD5E8)], // rose doux
-    [Color(0xFFFFE0B5), Color(0xFFFFD0C0)], // jaune → pêche
-    [Color(0xFFC8F0D8), Color(0xFFCDEFE8)], // vert d'eau
-    [Color(0xFFC8E8F0), Color(0xFFD5E5F5)], // bleu ciel
-    [Color(0xFFD5D5F5), Color(0xFFE5D5F0)], // lavande
-    [Color(0xFFC8E5F5), Color(0xFFD0E8E5)], // bleu clair
+    [Color(0xFFFAD0DD), Color(0xFFF8DCC8)],
+    [Color(0xFFF3D5EC), Color(0xFFE8D5F0)],
+    [Color(0xFFFAD0DD), Color(0xFFEFD5E8)],
+    [Color(0xFFFFE0B5), Color(0xFFFFD0C0)],
+    [Color(0xFFC8F0D8), Color(0xFFCDEFE8)],
+    [Color(0xFFC8E8F0), Color(0xFFD5E5F5)],
+    [Color(0xFFD5D5F5), Color(0xFFE5D5F0)],
+    [Color(0xFFC8E5F5), Color(0xFFD0E8E5)],
   ];
 
   @override
@@ -54,42 +52,47 @@ class _ExploreScreenState extends State<ExploreScreen> {
       child: SafeArea(
         child: Column(
           children: [
+            // Espace pour l'encoche
+            const SizedBox(height: 8),
             // En-tête
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Explorer', style: AppText.titreItalic(30)),
-                  const Text('🧭', style: TextStyle(fontSize: 26)),
+                  Text('Explorer', style: AppText.titreItalic(26)),
+                  const Text('🧭', style: TextStyle(fontSize: 22)),
                 ],
               ),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 12),
             // Recherche
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(28),
                   border: Border.all(color: AppColors.bordure),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.search, color: AppColors.rose),
-                    const SizedBox(width: 10),
+                    const Icon(Icons.search,
+                        color: AppColors.rose, size: 20),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: TextField(
                         onChanged: (v) => setState(() => _recherche = v),
+                        style: AppText.corps(14),
                         decoration: InputDecoration(
                           hintText: 'Rechercher une catégorie...',
-                          hintStyle: AppText.corps(15,
+                          hintStyle: AppText.corps(14,
                               color: AppColors.texteDoux),
                           border: InputBorder.none,
                           contentPadding:
-                              const EdgeInsets.symmetric(vertical: 16),
+                              const EdgeInsets.symmetric(vertical: 14),
+                          isDense: true,
                         ),
                       ),
                     ),
@@ -97,29 +100,29 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 22),
+            const SizedBox(height: 18),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text("DÉCOUVRE PAR CENTRE D'INTÉRÊT",
-                    style: AppText.corps(12,
+                    style: AppText.corps(11,
                             color: AppColors.texteDoux,
                             w: FontWeight.w700)
-                        .copyWith(letterSpacing: 1.2)),
+                        .copyWith(letterSpacing: 1)),
               ),
             ),
-            const SizedBox(height: 14),
-            // Grille de cartes
+            const SizedBox(height: 12),
+            // Grille
             Expanded(
               child: GridView.builder(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 gridDelegate:
                     const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 0.92,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 1.02,
                 ),
                 itemCount: cats.length,
                 itemBuilder: (_, i) {
@@ -127,19 +130,19 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   final idx = _categories.indexOf(c);
                   final grad = _grads[idx % _grads.length];
                   return Container(
-                    padding: const EdgeInsets.all(18),
+                    padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: grad,
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      borderRadius: BorderRadius.circular(26),
+                      borderRadius: BorderRadius.circular(22),
                       boxShadow: [
                         BoxShadow(
                           color: grad[0].withValues(alpha: 0.5),
-                          blurRadius: 12,
-                          offset: const Offset(0, 6),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
@@ -147,15 +150,23 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(c['emoji'] as String,
-                            style: const TextStyle(fontSize: 38)),
+                            style: const TextStyle(fontSize: 30)),
                         const Spacer(),
-                        Text(c['nom'] as String,
-                            style: AppText.titre(22)),
-                        const SizedBox(height: 4),
+                        // FittedBox empêche le titre de se couper
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: Text(c['nom'] as String,
+                              maxLines: 1,
+                              style: AppText.titre(18)),
+                        ),
+                        const SizedBox(height: 2),
                         Text(c['desc'] as String,
-                            style: AppText.corps(13,
-                                color: AppColors.texte.withValues(
-                                    alpha: 0.7))),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppText.corps(11,
+                                color: AppColors.texte
+                                    .withValues(alpha: 0.7))),
                       ],
                     ),
                   );

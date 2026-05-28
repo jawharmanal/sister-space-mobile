@@ -92,6 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onRefresh: _charger,
         child: ListView(
           children: [
+            const SizedBox(height: 8),
             // En-tête : @pseudo + déconnexion
             Padding(
               padding:
