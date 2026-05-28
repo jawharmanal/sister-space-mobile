@@ -1,4 +1,4 @@
-// 📱 PhoneFrame — cadre téléphone réaliste et joli (pour le web).
+// 📱 PhoneFrame — iPhone blanc élégant avec barre d'état (pour le web)
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import '../theme/colors.dart';
@@ -14,7 +14,6 @@ class PhoneFrame extends StatelessWidget {
       return child;
     }
 
-    // Cadre iPhone réaliste : 375 x 770 (proportions iPhone)
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -25,51 +24,111 @@ class PhoneFrame extends StatelessWidget {
       ),
       child: Center(
         child: Container(
-          width: 375,
-          height: 770,
+          width: 380,
+          height: 790,
+          // Cadre blanc/argenté élégant (effet titane clair)
           decoration: BoxDecoration(
-            color: const Color(0xFF1A1A1A),
-            borderRadius: BorderRadius.circular(48),
+            gradient: const LinearGradient(
+              colors: [Color(0xFFF0F0F3), Color(0xFFE2E2E8), Color(0xFFF5F5F8)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(52),
             boxShadow: [
               BoxShadow(
-                color: AppColors.rose.withValues(alpha: 0.35),
-                blurRadius: 55,
-                spreadRadius: 3,
-                offset: const Offset(0, 14),
+                color: AppColors.rose.withValues(alpha: 0.30),
+                blurRadius: 60,
+                spreadRadius: 4,
+                offset: const Offset(0, 16),
               ),
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.2),
-                blurRadius: 24,
-                offset: const Offset(0, 8),
+                color: Colors.black.withValues(alpha: 0.18),
+                blurRadius: 30,
+                offset: const Offset(0, 10),
               ),
             ],
           ),
-          padding: const EdgeInsets.all(10),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-            child: Stack(
-              children: [
-                Positioned.fill(child: child),
-                // Encoche (Dynamic Island style)
-                Positioned(
-                  top: 8,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Container(
-                      width: 110,
-                      height: 26,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A1A1A),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                  ),
+          padding: const EdgeInsets.all(6),
+          child: Container(
+            // Liseré interne noir fin (entre le cadre clair et l'écran)
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(46),
+            ),
+            padding: const EdgeInsets.all(3),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(44),
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  children: [
+                    // 🔋 Barre d'état iPhone
+                    _barreEtat(),
+                    // L'app
+                    Expanded(child: child),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _barreEtat() {
+    return Container(
+      height: 44,
+      color: Colors.white,
+      padding: const EdgeInsets.only(left: 28, right: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // Heure
+          const Text(
+            '9:41',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
+          ),
+          // Encoche (Dynamic Island)
+          Container(
+            width: 95,
+            height: 26,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          // Signal + Wifi + Batterie
+          Row(
+            children: [
+              const Icon(Icons.signal_cellular_alt, size: 16, color: Colors.black),
+              const SizedBox(width: 4),
+              const Icon(Icons.wifi, size: 16, color: Colors.black),
+              const SizedBox(width: 4),
+              // Batterie
+              Container(
+                width: 24,
+                height: 12,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  border: Border.all(
+                      color: Colors.black.withValues(alpha: 0.4), width: 1),
+                ),
+                padding: const EdgeInsets.all(1.5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.succes,
+                    borderRadius: BorderRadius.circular(1.5),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

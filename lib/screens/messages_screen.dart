@@ -65,14 +65,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   'Messages',
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    color: AppColors.rose,
-                  ),
+                  style: AppText.titreItalic(24),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.push(

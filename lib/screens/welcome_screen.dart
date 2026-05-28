@@ -1,4 +1,4 @@
-// 🌸 Écran 1 — Welcome / Login (style maquette)
+// 🌸 Welcome / Login — compact, fidèle à la maquette (logo carré, fond dégradé)
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 import '../services/api_service.dart';
@@ -40,172 +40,127 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.blanc,
-      body: SafeArea(
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFFFDE4EF), Color(0xFFFFF6FA), Colors.white],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [0.0, 0.4, 0.7],
+        ),
+      ),
+      child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16),
-              // Logo rond avec S
-              Center(
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [AppColors.rose, AppColors.roseFonce],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    shape: BoxShape.circle,
+              const SizedBox(height: 8),
+              // Logo carré arrondi (comme la maquette)
+              Container(
+                width: 46,
+                height: 46,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [AppColors.rose, AppColors.roseFonce],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  child: const Center(
-                    child: Text(
-                      'S',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 32,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Center(
+                  child: Text('S',
+                      style: AppText.titreItalic(24, color: Colors.white)),
                 ),
               ),
-              const SizedBox(height: 32),
-              // Titre Welcome to Sister Space
+              const SizedBox(height: 22),
+              // Titre
               RichText(
-                text: const TextSpan(
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.texte,
-                  ),
+                text: TextSpan(
+                  style: AppText.titre(26),
                   children: [
-                    TextSpan(text: 'Welcome to '),
+                    const TextSpan(text: 'Welcome to '),
                     TextSpan(
-                      text: 'Sister\nSpace.',
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: AppColors.rose,
-                      ),
+                      text: 'Sister Space.',
+                      style: AppText.titreItalic(26),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
-              const Text(
-                "Un espace cr\u00e9\u00e9 pour les femmes \u2014 \u00e0 partager, \u00e0 grandir ensemble.",
-                style: TextStyle(color: AppColors.texteDoux, fontSize: 14),
-              ),
-              const SizedBox(height: 32),
-              // EMAIL
-              const Text(
-                'EMAIL',
-                style: TextStyle(
-                  fontSize: 11,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.texteDoux,
-                ),
-              ),
               const SizedBox(height: 8),
-              TextField(
-                controller: _email,
-                decoration: _deco('ton@email.com'),
+              Text(
+                "Un espace créé pour les femmes — à partager, à grandir ensemble.",
+                style: AppText.corps(13, color: AppColors.texteDoux),
               ),
-              const SizedBox(height: 20),
-              // PASSWORD
-              const Text(
-                'PASSWORD',
-                style: TextStyle(
-                  fontSize: 11,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.texteDoux,
-                ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _mdp,
-                obscureText: true,
-                decoration: _deco('\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022'),
-              ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 24),
+              _label('EMAIL'),
+              const SizedBox(height: 6),
+              _champ(_email, 'ton@email.com'),
+              const SizedBox(height: 14),
+              _label('PASSWORD'),
+              const SizedBox(height: 6),
+              _champ(_mdp, '••••••••', secret: true),
+              const SizedBox(height: 6),
               Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  'Forgot password?',
-                  style: TextStyle(
-                    color: AppColors.rose,
-                    fontSize: 12,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
+                child: Text('Forgot password?',
+                    style: AppText.corps(12, color: AppColors.rose)
+                        .copyWith(fontStyle: FontStyle.italic)),
               ),
               if (_erreur != null) ...[
-                const SizedBox(height: 12),
+                const SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: AppColors.erreur.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
-                    _erreur!,
-                    style: const TextStyle(color: AppColors.erreur),
-                    textAlign: TextAlign.center,
-                  ),
+                  child: Text(_erreur!,
+                      style: AppText.corps(12, color: AppColors.erreur),
+                      textAlign: TextAlign.center),
                 ),
               ],
               const SizedBox(height: 16),
               // Bouton Sign in
               SizedBox(
-                height: 52,
+                width: double.infinity,
+                height: 48,
                 child: ElevatedButton(
                   onPressed: _chargement ? null : _connecter,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.rose,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(26),
+                      borderRadius: BorderRadius.circular(24),
                     ),
                     elevation: 0,
                   ),
                   child: _chargement
                       ? const SizedBox(
-                          width: 22,
-                          height: 22,
+                          width: 20,
+                          height: 20,
                           child: CircularProgressIndicator(
                               color: Colors.white, strokeWidth: 2),
                         )
-                      : const Text(
-                          'Sign in',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
+                      : Text('Sign in',
+                          style: AppText.corps(15, w: FontWeight.w700)
+                              .copyWith(color: Colors.white)),
                 ),
               ),
-              const SizedBox(height: 14),
-              const Center(
-                child: Text(
-                  'or continue with',
-                  style: TextStyle(color: AppColors.texteDoux, fontSize: 12),
-                ),
+              const SizedBox(height: 12),
+              Center(
+                child: Text('or continue with',
+                    style: AppText.corps(12, color: AppColors.texteDoux)),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 12),
               Row(
                 children: [
-                  Expanded(child: _boutonSocial('\uF8FF', 'Apple', Colors.black)),
-                  const SizedBox(width: 12),
-                  Expanded(
-                      child: _boutonSocial('G', 'Google', AppColors.texte)),
+                  Expanded(child: _social('', 'Apple')),
+                  const SizedBox(width: 10),
+                  Expanded(child: _social('G', 'Google')),
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               Center(
                 child: GestureDetector(
                   onTap: () => Navigator.push(
@@ -215,22 +170,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   child: RichText(
                     text: TextSpan(
-                      style: const TextStyle(
-                          color: AppColors.texteDoux, fontSize: 13),
+                      style: AppText.corps(13, color: AppColors.texteDoux),
                       children: [
                         const TextSpan(text: 'New here? '),
                         TextSpan(
                           text: 'Create account',
-                          style: TextStyle(
-                            color: AppColors.rose,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: AppText.corps(13,
+                              color: AppColors.rose, w: FontWeight.w700),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
@@ -238,43 +191,59 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-  InputDecoration _deco(String hint) => InputDecoration(
+  Widget _label(String s) => Text(s,
+      style: AppText.corps(11, color: AppColors.texteDoux, w: FontWeight.w700)
+          .copyWith(letterSpacing: 1));
+
+  Widget _champ(TextEditingController c, String hint, {bool secret = false}) {
+    return TextField(
+      controller: c,
+      obscureText: secret,
+      style: AppText.corps(14),
+      decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(color: AppColors.texteDoux),
+        hintStyle: AppText.corps(14, color: AppColors.texteDoux),
         filled: true,
-        fillColor: AppColors.roseBg,
+        fillColor: Colors.white,
         contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        isDense: true,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.bordure),
+          borderRadius: BorderRadius.circular(14),
+          borderSide: const BorderSide(color: AppColors.bordure),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(color: AppColors.bordure),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(color: AppColors.rose, width: 1.5),
         ),
-      );
+      ),
+    );
+  }
 
-  Widget _boutonSocial(String icone, String texte, Color couleur) {
+  Widget _social(String icone, String texte) {
     return OutlinedButton(
       onPressed: () {},
       style: OutlinedButton.styleFrom(
         side: const BorderSide(color: AppColors.bordure),
-        padding: const EdgeInsets.symmetric(vertical: 14),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        padding: const EdgeInsets.symmetric(vertical: 11),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(icone, style: TextStyle(color: couleur, fontSize: 16)),
-          const SizedBox(width: 8),
-          Text(texte,
-              style: TextStyle(
-                  color: AppColors.texte, fontWeight: FontWeight.w600)),
+          if (icone.isNotEmpty) ...[
+            Text(icone,
+                style: AppText.corps(14, w: FontWeight.w700)),
+            const SizedBox(width: 6),
+          ] else ...[
+            const Icon(Icons.apple, size: 18, color: AppColors.texte),
+            const SizedBox(width: 6),
+          ],
+          Text(texte, style: AppText.corps(13, w: FontWeight.w600)),
         ],
       ),
     );

@@ -120,8 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // Avatar
             Center(
               child: Container(
-                width: 100,
-                height: 100,
+                width: 84,
+                height: 84,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
                     colors: [AppColors.rose, AppColors.roseFonce],
@@ -141,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 38,
+                      fontSize: 32,
                     ),
                   ),
                 ),
